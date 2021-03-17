@@ -17,7 +17,7 @@
     >
       <p v-if="show">Animation.css</p>
     </transition>
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <p v-if="show" key="hello">こんにちは！</p>
       <p v-else key="bye">さようなら〜</p>
     </transition>
