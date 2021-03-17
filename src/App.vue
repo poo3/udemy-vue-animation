@@ -2,7 +2,7 @@
   <div class="main">
     <button @click="myAnimation = 'slide'">slide</button>
     <button @click="myAnimation = 'fade'">fade</button>
-    <p>{{myAnimation}}</p>
+    <p>{{ myAnimation }}</p>
     <button @click="show = !show">切り替え</button>
     <transition :name="myAnimation" appear>
       <p v-if="show">hello</p>
@@ -12,10 +12,14 @@
     </transition>
     <transition
       appear
-      enter-active-class = "animate__animated animate__rubberBand"
-      leave-active-class = "animate__animated animate__backOutRight"
+      enter-active-class="animate__animated animate__rubberBand"
+      leave-active-class="animate__animated animate__backOutRight"
     >
       <p v-if="show">Animation.css</p>
+    </transition>
+    <transition name="fade">
+      <p v-if="show" key="hello">こんにちは！</p>
+      <p v-else key="bye">さようなら〜</p>
     </transition>
   </div>
 </template>
@@ -25,7 +29,7 @@ export default {
   data() {
     return {
       show: true,
-      myAnimation: "slide"
+      myAnimation: "slide",
     };
   },
 };
@@ -39,7 +43,7 @@ export default {
   opacity: 1;
 }
 .fade-enter-active {
-  transition: opacity 2s;
+  transition: opacity 1s;
 }
 .fade-leave {
   opacity: 1;
@@ -48,7 +52,7 @@ export default {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 2s;
+  transition: opacity 1s;
 }
 
 .main {
@@ -57,7 +61,8 @@ export default {
   padding-top: 5rem;
 }
 
-.slide-enter,.slide-leave-to{
+.slide-enter,
+.slide-leave-to {
   opacity: 0;
 }
 
@@ -67,7 +72,7 @@ export default {
 }
 .slide-leave-active {
   animation: slide-in 1s reverse;
-  transition:2s;
+  transition: 2s;
 }
 
 @keyframes slide-in {
