@@ -1,7 +1,10 @@
 <template>
   <div class="main">
+    <button @click="myAnimation = 'slide'">slide</button>
+    <button @click="myAnimation = 'fade'">fade</button>
+    <p>{{myAnimation}}</p>
     <button @click="show = !show">切り替え</button>
-    <transition name="fade">
+    <transition :name="myAnimation" appear>
       <p v-if="show">hello</p>
     </transition>
     <transition name="slide" type="animation">
@@ -22,6 +25,7 @@ export default {
   data() {
     return {
       show: true,
+      myAnimation: "slide"
     };
   },
 };
@@ -35,7 +39,7 @@ export default {
   opacity: 1;
 }
 .fade-enter-active {
-  transition: opacity 1s;
+  transition: opacity 2s;
 }
 .fade-leave {
   opacity: 1;
@@ -44,7 +48,7 @@ export default {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 2s;
 }
 
 .main {
