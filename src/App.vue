@@ -4,6 +4,15 @@
     <button @click="myAnimation = 'fade'">fade</button>
     <p>{{ myAnimation }}</p>
     <button @click="show = !show">切り替え</button>
+    <br /><br />
+    <transition
+      :css="false"
+      @enter="enter"
+      @leave="leave"
+      @before-enter="beforeEnter"
+    >
+      <div class="circle" v-if="show"></div>
+    </transition>
     <transition :name="myAnimation" appear>
       <p v-if="show">hello</p>
     </transition>
@@ -34,9 +43,9 @@
 import ComponentA from "./components/ComponentA";
 import ComponentB from "./components/ComponentB";
 export default {
-  components:{
+  components: {
     ComponentA,
-    ComponentB
+    ComponentB,
   },
   data() {
     return {
@@ -45,10 +54,44 @@ export default {
       myComponent: "ComponentA",
     };
   },
+  methods: {
+    beforeEnter(el) {
+      el.style.transform = `scale(0)`
+    },
+    enter(el, done) {
+      let scale = 0;
+      const interval = setInterval(() => {
+        el.style.transform = `scale(${scale})`;
+        scale += 0.1;
+        if (scale > 1) {
+          clearInterval(interval);
+          done();
+        }
+      },30);
+    },
+    leave(el, done) {
+      let scale = 1;
+      const interval = setInterval(() => {
+        el.style.transform = `scale(${scale})`;
+        scale -= 0.1;
+        if (scale < 0) {
+          clearInterval(interval);
+          done();
+        }
+      },30);
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.circle {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  background-color: aquamarine;
+  border-radius: 100px;
+}
 .fade-enter {
   opacity: 0;
 }
