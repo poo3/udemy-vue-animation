@@ -4,8 +4,15 @@
     <transition name="fade">
       <p v-if="show">hello</p>
     </transition>
-    <transition name="slide">
+    <transition name="slide" type="animation">
       <p v-if="show">bye</p>
+    </transition>
+    <transition
+      appear
+      enter-active-class = "animate__animated animate__rubberBand"
+      leave-active-class = "animate__animated animate__backOutRight"
+    >
+      <p v-if="show">Animation.css</p>
     </transition>
   </div>
 </template>
@@ -46,11 +53,17 @@ export default {
   padding-top: 5rem;
 }
 
+.slide-enter,.slide-leave-to{
+  opacity: 0;
+}
+
 .slide-enter-active {
   animation: slide-in 1s;
+  transition: 2s;
 }
 .slide-leave-active {
   animation: slide-in 1s reverse;
+  transition:2s;
 }
 
 @keyframes slide-in {
