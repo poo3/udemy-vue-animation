@@ -39,7 +39,9 @@
     <br /><br />
     <button @click="addNumber">addNum</button>
     <ul class="number-list">
-      <li v-for="(number,index) in numbers" :key="number" @click="removeNum(index)">{{ number }}</li>
+      <transition-group name="fade" type="animation">
+        <li class="number" v-for="(number,index) in numbers" :key="number" @click="removeNum(index)">{{ number }}</li>
+      </transition-group>
     </ul>
   </div>
 </template>
@@ -102,6 +104,10 @@ export default {
 </script>
 
 <style scoped>
+.number{
+  cursor: pointer;
+}
+
 .number-list {
   width: 300px;
   margin: auto;
@@ -112,6 +118,9 @@ export default {
   margin: auto;
   background-color: aquamarine;
   border-radius: 100px;
+}
+.fade-move{
+  transition: transform 1s;
 }
 .fade-enter {
   opacity: 0;
@@ -130,6 +139,8 @@ export default {
 }
 .fade-leave-active {
   transition: opacity 1s;
+  position: absolute;
+  width: 300px;
 }
 
 .main {
