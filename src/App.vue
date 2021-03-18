@@ -39,7 +39,7 @@
     <br /><br />
     <button @click="addNumber">addNum</button>
     <ul class="number-list">
-      <li v-for="number in numbers" :key="number" @click="removeNum">{{ number }}</li>
+      <li v-for="(number,index) in numbers" :key="number" @click="removeNum(index)">{{ number }}</li>
     </ul>
   </div>
 </template>
@@ -62,8 +62,8 @@ export default {
     };
   },
   methods: {
-    removeNum(){
-      this.numbers.splice(this.number,1)
+    removeNum(index){
+      this.numbers.splice(index,1)
     },
     randomNum() {
       return Math.floor(Math.random() * this.numbers.length);
