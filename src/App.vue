@@ -36,6 +36,11 @@
     <transition name="fade" mode="out-in">
       <component :is="myComponent"></component>
     </transition>
+    <br /><br />
+    <button @click="addNumber">addNum</button>
+    <ul class="number-list">
+      <li v-for="number in numbers" :key="number" @click="removeNum">{{ number }}</li>
+    </ul>
   </div>
 </template>
 
@@ -52,11 +57,23 @@ export default {
       show: true,
       myAnimation: "slide",
       myComponent: "ComponentA",
+      numbers: [0, 1, 2, 3],
+      nextNum: 4,
     };
   },
   methods: {
+    removeNum(){
+      this.numbers.splice(this.number,1)
+    },
+    randomNum() {
+      return Math.floor(Math.random() * this.numbers.length);
+    },
+    addNumber() {
+      this.numbers.splice(this.randomNum(), 0, this.nextNum);
+      this.nextNum += 1;
+    },
     beforeEnter(el) {
-      el.style.transform = `scale(0)`
+      el.style.transform = `scale(0)`;
     },
     enter(el, done) {
       let scale = 0;
@@ -67,7 +84,7 @@ export default {
           clearInterval(interval);
           done();
         }
-      },30);
+      }, 30);
     },
     leave(el, done) {
       let scale = 1;
@@ -78,13 +95,17 @@ export default {
           clearInterval(interval);
           done();
         }
-      },30);
+      }, 30);
     },
   },
 };
 </script>
 
 <style scoped>
+.number-list {
+  width: 300px;
+  margin: auto;
+}
 .circle {
   width: 200px;
   height: 200px;
